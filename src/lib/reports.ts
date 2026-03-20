@@ -6,7 +6,7 @@
  * that our TypeScript engine matches, then switch to live computations.
  */
 
-import { jobDataRows, appConfig, billings, costs, collections, changeOrders, jobs, jobsByNumber } from './data'
+import { jobDataRows, appConfig, billings, costs, collections, changeOrders, jobs, jobsByNumber, getJobDataAt } from './data'
 import { computeJobPeriodMetrics, computeSchedule1, computeSchedule2, computeSchedule3, computeNota6, computeNoteD, computeMetodoAlterno } from './engine'
 import type { JobPeriodMetrics, JobDataRow } from './types'
 
@@ -25,13 +25,23 @@ export function getMetricsForPeriod(period: string): JobPeriodMetrics[] {
       const job = jobsByNumber.get(row['Job #'])
       if (!job) return null
 
-      return computeJobPeriodMetrics({
+      // Look up the prior period row for accurate prior-years revenue/cost
+    const priorRow = getJobDataAt(row['Job #'], priorPeriod)
+    const priorPeriodRow = priorRow ? {
+      revenueEarnedToDate: priorRow['Revenue Earned to Date'] ?? 0,
+      costToDate: priorRow['Cost of Construction to Date'] ?? 0,
+      billedToDate: priorRow['Progress Billings to Date'] ?? 0,
+      grossProfitToDate: priorRow['Gross Profit to Date'] ?? 0,
+    } : null
+
+    return computeJobPeriodMetrics({
         job,
         dataPeriod: period,
         priorPeriod,
         status: row.Status as JobPeriodMetrics['status'],
         pctOfDesiredCost: row['% of Desired Cost'],
         desiredCostToComplete: row['Desired Cost to Complete'],
+        priorPeriodRow,
         changeOrders,
         billings,
         collections,

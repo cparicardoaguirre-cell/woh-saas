@@ -15,6 +15,16 @@ interface EngineInput {
   pctOfDesiredCost?: number | null    // user-entered, e.g. 0.85
   desiredCostToComplete?: number | null // user-entered override
 
+  // Prior period row from JobDataTable — used for exact prior-year revenue/cost lookup.
+  // When provided, avoids re-computing prior years from scratch (which diverges when
+  // the prior period had different % of Desired Cost inputs).
+  priorPeriodRow?: {
+    revenueEarnedToDate: number
+    costToDate: number
+    billedToDate: number
+    grossProfitToDate: number
+  } | null
+
   changeOrders: ChangeOrder[]
   billings: Billing[]
   collections: Collection[]
@@ -42,6 +52,7 @@ export function computeJobPeriodMetrics(input: EngineInput): JobPeriodMetrics {
     status,
     pctOfDesiredCost,
     desiredCostToComplete,
+    priorPeriodRow,
     changeOrders,
     billings,
     collections,
@@ -132,29 +143,35 @@ export function computeJobPeriodMetrics(input: EngineInput): JobPeriodMetrics {
   }
 
   // ── Revenue Prior Years ────────────────────────────────────────────────────
-  // This should be the Revenue Earned from the prior period's job data row.
-  // Since we're computing from scratch, we approximate using cost-based formula
-  // applied to prior period costs. In production, query the prior period row.
-
-  const appliedPctPrior = projectedContractAmount > 0
-    ? Math.min(1, costPriorYears / projectedContractAmount)
-    : 0
+  // Use the exact value from the prior period row when available.
+  // This is critical: prior period had its own pctOfDesiredCost input, so
+  // re-computing would diverge. The Excel does a MAXIFS on the JobDataTable
+  // looking up the row at the prior period end date.
 
   let revenuePriorYears: number
-  if (costPriorYears > projectedContractAmount) {
-    revenuePriorYears = projectedContractAmount
-  } else if (appliedPctPrior <= 0) {
-    revenuePriorYears = 0
+  if (priorPeriodRow) {
+    revenuePriorYears = priorPeriodRow.revenueEarnedToDate
   } else {
-    revenuePriorYears = costPriorYears / appliedPctPrior
+    // Fallback: re-compute using cost-based formula (less accurate)
+    const appliedPctPrior = projectedContractAmount > 0
+      ? Math.min(1, costPriorYears / projectedContractAmount)
+      : 0
+    if (costPriorYears > projectedContractAmount) {
+      revenuePriorYears = projectedContractAmount
+    } else if (appliedPctPrior <= 0) {
+      revenuePriorYears = 0
+    } else {
+      revenuePriorYears = costPriorYears / appliedPctPrior
+    }
   }
 
   const revenueCurrentPeriod = revenueEarnedToDate - revenuePriorYears
 
   // ── Gross Profit ───────────────────────────────────────────────────────────
 
+  const costPriorYearsActual = priorPeriodRow ? priorPeriodRow.costToDate : costPriorYears
   const grossProfitToDate = revenueEarnedToDate - costToDate
-  const grossProfitPriorYears = revenuePriorYears - costPriorYears
+  const grossProfitPriorYears = revenuePriorYears - costPriorYearsActual
   const grossProfitCurrentPeriod = revenueCurrentPeriod - costCurrentPeriod
 
   // ── Billings ───────────────────────────────────────────────────────────────
@@ -165,11 +182,13 @@ export function computeJobPeriodMetrics(input: EngineInput): JobPeriodMetrics {
     (b) => b.Amount ?? 0
   )
 
-  const billedPriorYears = sumIf(
-    billings,
-    (b) => b['Job Number'] === jobNum && lte(b.Date, priorPeriod),
-    (b) => b.Amount ?? 0
-  )
+  const billedPriorYears = priorPeriodRow
+    ? priorPeriodRow.billedToDate
+    : sumIf(
+        billings,
+        (b) => b['Job Number'] === jobNum && lte(b.Date, priorPeriod),
+        (b) => b.Amount ?? 0
+      )
 
   const billedCurrentPeriod = billedToDate - billedPriorYears
 
