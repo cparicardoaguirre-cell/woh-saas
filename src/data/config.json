@@ -1,0 +1,953 @@
+{
+  "CompanyName": "DFM Contractors, LLC.",
+  "CurrentEndingPeriod": "2024-12-31",
+  "PriorEndedPeriod": "2023-12-31",
+  "Prior2Period": "2022-12-31",
+  "Prior3Period": "2021-12-31",
+  "CurrentQtyMonths": 12,
+  "Prior1QtyMonths": 12,
+  "Prior2QtyMonths": 12,
+  "Prior3QtyMonths": 12,
+  "JobNumberRangeLower": 2000,
+  "JobNumberRangeHigher": 2100,
+  "ListPeriodMonths": 12,
+  "ListPeriodShown": 1,
+  "IsProprietorship": "No",
+  "UniquePeriod": "2025-12-31",
+  "PeriodSelection": "2025-12-31",
+  "PeriodDisplayTable": [
+    {
+      "Periods": 1,
+      "Text of Month": "Month",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Month Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Month Ending December 31, 2024 and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 2,
+      "Text of Month": "Two",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Two Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Two Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 3,
+      "Text of Month": "Three",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Three Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Three Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 4,
+      "Text of Month": "Four",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Four Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Four Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 5,
+      "Text of Month": "Five",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Five Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Five Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 6,
+      "Text of Month": "Six",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Six Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Six Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 7,
+      "Text of Month": "Seven",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Seven Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Seven Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 8,
+      "Text of Month": "Eight",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Eight Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Eight Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 9,
+      "Text of Month": "Nine",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Nine Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Nine Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 10,
+      "Text of Month": "Ten",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Ten Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Ten Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 11,
+      "Text of Month": "Eleven",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Eleven Months Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and December 31, 2023",
+      "IS-2": "For The Eleven Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "Periods": 12,
+      "Text of Month": "Twelve",
+      "BS-1": "As of December 31, 2024",
+      "IS-1": "For The Year Ending December 31, 2024",
+      "BS-2": "As of December 31, 2024 and 2023",
+      "IS-2": "For The Years Ending December 31, 2024 and 2023"
+    }
+  ],
+  "_raw_cells": [
+    {
+      "row": 1,
+      "col": 1,
+      "value": "DFM Contractors, LLC."
+    },
+    {
+      "row": 3,
+      "col": 6,
+      "value": "#VALUE!"
+    },
+    {
+      "row": 6,
+      "col": 1,
+      "value": "Current Ending Period"
+    },
+    {
+      "row": 6,
+      "col": 2,
+      "value": "Prior Ended Period"
+    },
+    {
+      "row": 7,
+      "col": 1,
+      "value": "2024-12-31"
+    },
+    {
+      "row": 7,
+      "col": 2,
+      "value": "2023-12-31"
+    },
+    {
+      "row": 7,
+      "col": 3,
+      "value": "2022-12-31"
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "value": "2021-12-31"
+    },
+    {
+      "row": 9,
+      "col": 1,
+      "value": "Current Qty Months"
+    },
+    {
+      "row": 9,
+      "col": 2,
+      "value": "Prior1 Qty Months"
+    },
+    {
+      "row": 9,
+      "col": 3,
+      "value": "Prior2 Qty Months"
+    },
+    {
+      "row": 9,
+      "col": 4,
+      "value": "Prior3 Qty Months"
+    },
+    {
+      "row": 10,
+      "col": 1,
+      "value": 12
+    },
+    {
+      "row": 10,
+      "col": 2,
+      "value": 12
+    },
+    {
+      "row": 10,
+      "col": 3,
+      "value": 12
+    },
+    {
+      "row": 10,
+      "col": 4,
+      "value": 12
+    },
+    {
+      "row": 12,
+      "col": 1,
+      "value": "Lower"
+    },
+    {
+      "row": 12,
+      "col": 2,
+      "value": "Higher"
+    },
+    {
+      "row": 13,
+      "col": 1,
+      "value": 2000
+    },
+    {
+      "row": 13,
+      "col": 2,
+      "value": 2100
+    },
+    {
+      "row": 18,
+      "col": 1,
+      "value": "Months"
+    },
+    {
+      "row": 18,
+      "col": 2,
+      "value": "Periods To Be Shown"
+    },
+    {
+      "row": 19,
+      "col": 1,
+      "value": 12
+    },
+    {
+      "row": 19,
+      "col": 2,
+      "value": 1
+    },
+    {
+      "row": 20,
+      "col": 1,
+      "value": "Es Proprietorship?"
+    },
+    {
+      "row": 21,
+      "col": 1,
+      "value": "No"
+    },
+    {
+      "row": 23,
+      "col": 1,
+      "value": "Periods"
+    },
+    {
+      "row": 23,
+      "col": 2,
+      "value": "Text of Month"
+    },
+    {
+      "row": 23,
+      "col": 3,
+      "value": "BS-1"
+    },
+    {
+      "row": 23,
+      "col": 4,
+      "value": "IS-1"
+    },
+    {
+      "row": 23,
+      "col": 5,
+      "value": "BS-2"
+    },
+    {
+      "row": 23,
+      "col": 6,
+      "value": "IS-2"
+    },
+    {
+      "row": 23,
+      "col": 7,
+      "value": "BS-3"
+    },
+    {
+      "row": 23,
+      "col": 8,
+      "value": "IS-3"
+    },
+    {
+      "row": 23,
+      "col": 9,
+      "value": "BS-4"
+    },
+    {
+      "row": 24,
+      "col": 1,
+      "value": 1
+    },
+    {
+      "row": 24,
+      "col": 2,
+      "value": "Month"
+    },
+    {
+      "row": 24,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 24,
+      "col": 4,
+      "value": "For The Month Ending December 31, 2024"
+    },
+    {
+      "row": 24,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 24,
+      "col": 6,
+      "value": "For The Month Ending December 31, 2024 and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 24,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 24,
+      "col": 8,
+      "value": "For The Month Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 24,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 25,
+      "col": 1,
+      "value": 2
+    },
+    {
+      "row": 25,
+      "col": 2,
+      "value": "Two"
+    },
+    {
+      "row": 25,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 25,
+      "col": 4,
+      "value": "For The Two Months Ending December 31, 2024"
+    },
+    {
+      "row": 25,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 25,
+      "col": 6,
+      "value": "For The Two Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 25,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 25,
+      "col": 8,
+      "value": "For The Two Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 25,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 26,
+      "col": 1,
+      "value": 3
+    },
+    {
+      "row": 26,
+      "col": 2,
+      "value": "Three"
+    },
+    {
+      "row": 26,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 26,
+      "col": 4,
+      "value": "For The Three Months Ending December 31, 2024"
+    },
+    {
+      "row": 26,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 26,
+      "col": 6,
+      "value": "For The Three Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 26,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 26,
+      "col": 8,
+      "value": "For The Three Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 26,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 27,
+      "col": 1,
+      "value": 4
+    },
+    {
+      "row": 27,
+      "col": 2,
+      "value": "Four"
+    },
+    {
+      "row": 27,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 27,
+      "col": 4,
+      "value": "For The Four Months Ending December 31, 2024"
+    },
+    {
+      "row": 27,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 27,
+      "col": 6,
+      "value": "For The Four Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 27,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 27,
+      "col": 8,
+      "value": "For The Four Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 27,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 28,
+      "col": 1,
+      "value": 5
+    },
+    {
+      "row": 28,
+      "col": 2,
+      "value": "Five"
+    },
+    {
+      "row": 28,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 28,
+      "col": 4,
+      "value": "For The Five Months Ending December 31, 2024"
+    },
+    {
+      "row": 28,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 28,
+      "col": 6,
+      "value": "For The Five Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 28,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 28,
+      "col": 8,
+      "value": "For The Five Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 28,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 29,
+      "col": 1,
+      "value": 6
+    },
+    {
+      "row": 29,
+      "col": 2,
+      "value": "Six"
+    },
+    {
+      "row": 29,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 29,
+      "col": 4,
+      "value": "For The Six Months Ending December 31, 2024"
+    },
+    {
+      "row": 29,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 29,
+      "col": 6,
+      "value": "For The Six Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 29,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 29,
+      "col": 8,
+      "value": "For The Six Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 29,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 30,
+      "col": 1,
+      "value": 7
+    },
+    {
+      "row": 30,
+      "col": 2,
+      "value": "Seven"
+    },
+    {
+      "row": 30,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 30,
+      "col": 4,
+      "value": "For The Seven Months Ending December 31, 2024"
+    },
+    {
+      "row": 30,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 30,
+      "col": 6,
+      "value": "For The Seven Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 30,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 30,
+      "col": 8,
+      "value": "For The Seven Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 30,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 31,
+      "col": 1,
+      "value": 8
+    },
+    {
+      "row": 31,
+      "col": 2,
+      "value": "Eight"
+    },
+    {
+      "row": 31,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 31,
+      "col": 4,
+      "value": "For The Eight Months Ending December 31, 2024"
+    },
+    {
+      "row": 31,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 31,
+      "col": 6,
+      "value": "For The Eight Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 31,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 31,
+      "col": 8,
+      "value": "For The Eight Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 31,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 32,
+      "col": 1,
+      "value": 9
+    },
+    {
+      "row": 32,
+      "col": 2,
+      "value": "Nine"
+    },
+    {
+      "row": 32,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 32,
+      "col": 4,
+      "value": "For The Nine Months Ending December 31, 2024"
+    },
+    {
+      "row": 32,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 32,
+      "col": 6,
+      "value": "For The Nine Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 32,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 32,
+      "col": 8,
+      "value": "For The Nine Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 32,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 33,
+      "col": 1,
+      "value": 10
+    },
+    {
+      "row": 33,
+      "col": 2,
+      "value": "Ten"
+    },
+    {
+      "row": 33,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 33,
+      "col": 4,
+      "value": "For The Ten Months Ending December 31, 2024"
+    },
+    {
+      "row": 33,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 33,
+      "col": 6,
+      "value": "For The Ten Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 33,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 33,
+      "col": 8,
+      "value": "For The Ten Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 33,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 34,
+      "col": 1,
+      "value": 11
+    },
+    {
+      "row": 34,
+      "col": 2,
+      "value": "Eleven"
+    },
+    {
+      "row": 34,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 34,
+      "col": 4,
+      "value": "For The Eleven Months Ending December 31, 2024"
+    },
+    {
+      "row": 34,
+      "col": 5,
+      "value": "As of December 31, 2024 and December 31, 2023"
+    },
+    {
+      "row": 34,
+      "col": 6,
+      "value": "For The Eleven Months Ending December 31, 2024, and For The Year Ended December 31, 2023"
+    },
+    {
+      "row": 34,
+      "col": 7,
+      "value": "As of December 31, 2024, December 31, 2023 and 2022"
+    },
+    {
+      "row": 34,
+      "col": 8,
+      "value": "For The Eleven Months Ending December 31, 2024 and For The Years Ended December 31, 2023 and 2022"
+    },
+    {
+      "row": 34,
+      "col": 9,
+      "value": "As of December 31, 2024, December 31, 2023, 2022 and 2021"
+    },
+    {
+      "row": 35,
+      "col": 1,
+      "value": 12
+    },
+    {
+      "row": 35,
+      "col": 2,
+      "value": "Twelve"
+    },
+    {
+      "row": 35,
+      "col": 3,
+      "value": "As of December 31, 2024"
+    },
+    {
+      "row": 35,
+      "col": 4,
+      "value": "For The Year Ending December 31, 2024"
+    },
+    {
+      "row": 35,
+      "col": 5,
+      "value": "As of December 31, 2024 and 2023"
+    },
+    {
+      "row": 35,
+      "col": 6,
+      "value": "For The Years Ending December 31, 2024 and 2023"
+    },
+    {
+      "row": 35,
+      "col": 7,
+      "value": "As of December 31, 2024, 2023 and 2022"
+    },
+    {
+      "row": 35,
+      "col": 8,
+      "value": "For The Years Ending December 31, 2024, 2023 and 2022"
+    },
+    {
+      "row": 35,
+      "col": 9,
+      "value": "As of December 31, 2024, 2023, 2022 and 2021"
+    },
+    {
+      "row": 39,
+      "col": 1,
+      "value": "UniquePeriod"
+    },
+    {
+      "row": 39,
+      "col": 2,
+      "value": "PeriodSelection"
+    },
+    {
+      "row": 39,
+      "col": 4,
+      "value": "2025-12-31"
+    },
+    {
+      "row": 40,
+      "col": 1,
+      "value": "2025-12-31"
+    },
+    {
+      "row": 40,
+      "col": 2,
+      "value": "2025-12-31"
+    },
+    {
+      "row": 40,
+      "col": 4,
+      "value": "2024-12-31"
+    },
+    {
+      "row": 41,
+      "col": 1,
+      "value": "2024-12-31"
+    },
+    {
+      "row": 41,
+      "col": 2,
+      "value": "2024-12-31"
+    },
+    {
+      "row": 41,
+      "col": 4,
+      "value": "2023-12-31"
+    },
+    {
+      "row": 42,
+      "col": 1,
+      "value": "2023-12-31"
+    },
+    {
+      "row": 42,
+      "col": 2,
+      "value": "2023-12-31"
+    },
+    {
+      "row": 42,
+      "col": 4,
+      "value": "2022-12-31"
+    },
+    {
+      "row": 43,
+      "col": 1,
+      "value": "2022-12-31"
+    },
+    {
+      "row": 43,
+      "col": 2,
+      "value": "2022-12-31"
+    },
+    {
+      "row": 43,
+      "col": 4,
+      "value": "2021-12-31"
+    },
+    {
+      "row": 44,
+      "col": 1,
+      "value": "2021-12-31"
+    },
+    {
+      "row": 44,
+      "col": 2,
+      "value": "2021-12-31"
+    },
+    {
+      "row": 44,
+      "col": 4,
+      "value": "2020-12-31"
+    },
+    {
+      "row": 45,
+      "col": 1,
+      "value": "2020-12-31"
+    },
+    {
+      "row": 45,
+      "col": 2,
+      "value": "2020-12-31"
+    },
+    {
+      "row": 45,
+      "col": 4,
+      "value": "2019-12-31"
+    },
+    {
+      "row": 46,
+      "col": 1,
+      "value": "2019-12-31"
+    },
+    {
+      "row": 46,
+      "col": 2,
+      "value": "2019-12-31"
+    },
+    {
+      "row": 47,
+      "col": 1,
+      "value": "00:00:00"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "Job Number": null,
+    "Supplier": null,
+    "Invoice Number": null,
+    "Payment Date": null,
+    "Payment Method": null,
+    "Type": null,
+    "Amount": null,
+    "Job Payments": 0,
+    "Job AP Balance": 0,
+    "Supplier Job Balance": 0,
+    "Supplier Balance": 0,
+    "UniqueJobSupplier": null
+  },
+  {
+    "Job Number": null,
+    "Supplier": null,
+    "Invoice Number": null,
+    "Payment Date": null,
+    "Payment Method": null,
+    "Type": null,
+    "Amount": null,
+    "Job Payments": 0,
+    "Job AP Balance": 0,
+    "Supplier Job Balance": 0,
+    "Supplier Balance": 0,
+    "UniqueJobSupplier": null
+  },
+  {
+    "Job Number": null,
+    "Supplier": null,
+    "Invoice Number": null,
+    "Payment Date": null,
+    "Payment Method": null,
+    "Type": null,
+    "Amount": null,
+    "Job Payments": 0,
+    "Job AP Balance": 0,
+    "Supplier Job Balance": 0,
+    "Supplier Balance": 0,
+    "UniqueJobSupplier": null
+  },
+  {
+    "Job Number": null,
+    "Supplier": null,
+    "Invoice Number": null,
+    "Payment Date": null,
+    "Payment Method": null,
+    "Type": null,
+    "Amount": null,
+    "Job Payments": 0,
+    "Job AP Balance": 0,
+    "Supplier Job Balance": 0,
+    "Supplier Balance": 0,
+    "UniqueJobSupplier": null
+  }
+]
