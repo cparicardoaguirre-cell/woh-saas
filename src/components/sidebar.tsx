@@ -16,6 +16,7 @@ const nav = [
     group: 'Master Data',
     items: [
       { href: '/jobs', label: 'Jobs / Projects' },
+      { href: '/job-data', label: 'Job Data' },
       { href: '/customers', label: 'Customers' },
       { href: '/change-orders', label: 'Change Orders' },
     ],

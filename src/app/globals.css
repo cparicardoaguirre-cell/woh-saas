@@ -128,3 +128,57 @@
     @apply font-sans;
   }
 }
+
+/* ─── Print-friendly styles for report pages ─────────────────────────── */
+@media print {
+  /* Hide navigation, sidebar, and interactive elements */
+  nav,
+  aside,
+  [data-slot="sidebar"],
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Remove shadows, borders, background colors for clean printing */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+
+  /* Ensure tables don't break across pages awkwardly */
+  table {
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  thead {
+    display: table-header-group;
+  }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  /* Cards should print without ring/shadow */
+  [data-slot="card"] {
+    box-shadow: none !important;
+    ring: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+
+  /* Ensure the content area takes full width */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Landscape mode for wide tables (Schedule 2, 3, Metodo Alterno) */
+  @page {
+    margin: 0.5in;
+    size: auto;
+  }
+}
