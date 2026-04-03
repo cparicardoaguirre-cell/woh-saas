@@ -1,8 +1,10 @@
-import { getAllReportData } from '@/lib/reports'
-import { appConfig } from '@/lib/data'
-import { currency, pct } from '@/lib/format'
+import { getCompanyForUser, getAppConfig, getReportingPeriods } from '@/lib/db'
+import { getAllReportDataLive } from '@/lib/db-reports'
+import { currency, pct, periodLabel } from '@/lib/format'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { PeriodSelector } from '@/components/period-selector'
+import { PrintButton } from '@/components/print-button'
+import { redirect } from 'next/navigation'
 
 const statusColor: Record<string, string> = {
   'In Progress': 'bg-green-100 text-green-800',
@@ -10,9 +12,23 @@ const statusColor: Record<string, string> = {
   Inactive: 'bg-gray-100 text-gray-700',
 }
 
-export default function Schedule3Page() {
-  const { schedule3 } = getAllReportData()
-  const { companyName } = appConfig
+export default async function Schedule3Page(
+  props: { searchParams: Promise<Record<string, string | string[] | undefined>> }
+) {
+  const company = await getCompanyForUser()
+  if (!company) redirect('/login')
+
+  const config = await getAppConfig(company.id)
+  const sp = await props.searchParams
+  const period = (sp?.period as string) || config.currentPeriod
+
+  const reportData = await getAllReportDataLive(company.id, period)
+  const { schedule3 } = reportData
+
+  const periods = await getReportingPeriods(company.id)
+  const periodDates = periods.length > 0
+    ? periods.map((p) => p.period_date)
+    : [config.currentPeriod, config.priorPeriod1, config.priorPeriod2, config.priorPeriod3].filter(Boolean)
 
   const totals = {
     projected: schedule3.reduce((a, m) => a + m.projectedContractAmount, 0),
@@ -31,11 +47,17 @@ export default function Schedule3Page() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Financial Schedule</div>
-        <h1 className="text-xl font-bold">{companyName}</h1>
+        <div className="flex items-center justify-between print:hidden">
+          <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Financial Schedule</div>
+          <div className="flex items-center gap-3">
+            <PeriodSelector periods={periodDates} currentPeriod={period} />
+            <PrintButton />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold">{config.companyName}</h1>
         <h2 className="text-lg font-semibold text-gray-700 mt-1">Schedule 3 — Contracts in Progress</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          As of December 31, 2024 &nbsp;·&nbsp; {schedule3.length} active contracts
+          As of {periodLabel(period)} &nbsp;·&nbsp; {schedule3.length} active contracts
         </p>
       </div>
 

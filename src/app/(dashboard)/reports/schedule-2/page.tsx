@@ -1,15 +1,33 @@
-import { getAllReportData } from '@/lib/reports'
-import { appConfig } from '@/lib/data'
-import { currency, pct } from '@/lib/format'
+import { getCompanyForUser, getAppConfig, getReportingPeriods } from '@/lib/db'
+import { getAllReportDataLive } from '@/lib/db-reports'
+import { currency, pct, periodLabel } from '@/lib/format'
 import { Card, CardContent } from '@/components/ui/card'
+import { PeriodSelector } from '@/components/period-selector'
+import { PrintButton } from '@/components/print-button'
+import { redirect } from 'next/navigation'
 
-export default function Schedule2Page() {
-  const { schedule2 } = getAllReportData()
-  const { companyName } = appConfig
+export default async function Schedule2Page(
+  props: { searchParams: Promise<Record<string, string | string[] | undefined>> }
+) {
+  const company = await getCompanyForUser()
+  if (!company) redirect('/login')
+
+  const config = await getAppConfig(company.id)
+  const sp = await props.searchParams
+  const period = (sp?.period as string) || config.currentPeriod
+
+  const reportData = await getAllReportDataLive(company.id, period)
+  const { schedule2 } = reportData
+
+  const periods = await getReportingPeriods(company.id)
+  const periodDates = periods.length > 0
+    ? periods.map((p) => p.period_date)
+    : [config.currentPeriod, config.priorPeriod1, config.priorPeriod2, config.priorPeriod3].filter(Boolean)
 
   const totalRevToDate = schedule2.reduce((a, m) => a + m.revenueEarnedToDate, 0)
   const totalCostToDate = schedule2.reduce((a, m) => a + m.costToDate, 0)
   const totalGPToDate = schedule2.reduce((a, m) => a + m.grossProfitToDate, 0)
+  const totalRevPrior = schedule2.reduce((a, m) => a + m.revenuePriorYears, 0)
   const totalRevCurrent = schedule2.reduce((a, m) => a + m.revenueCurrentPeriod, 0)
   const totalCostCurrent = schedule2.reduce((a, m) => a + m.costCurrentPeriod, 0)
   const totalGPCurrent = schedule2.reduce((a, m) => a + m.grossProfitCurrentPeriod, 0)
@@ -17,11 +35,17 @@ export default function Schedule2Page() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Financial Schedule</div>
-        <h1 className="text-xl font-bold">{companyName}</h1>
+        <div className="flex items-center justify-between print:hidden">
+          <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Financial Schedule</div>
+          <div className="flex items-center gap-3">
+            <PeriodSelector periods={periodDates} currentPeriod={period} />
+            <PrintButton />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold">{config.companyName}</h1>
         <h2 className="text-lg font-semibold text-gray-700 mt-1">Schedule 2 — Completed Contracts</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          For the year ended December 31, 2024 &nbsp;·&nbsp; {schedule2.length} contracts
+          For the year ended {periodLabel(period)} &nbsp;·&nbsp; {schedule2.length} contracts
         </p>
       </div>
 
@@ -71,7 +95,7 @@ export default function Schedule2Page() {
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalRevToDate)}</td>
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalCostToDate)}</td>
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalGPToDate)}</td>
-                  <td className="text-right tabular-nums py-2 px-3 text-muted-foreground">—</td>
+                  <td className="text-right tabular-nums py-2 px-3 text-muted-foreground">{currency(totalRevPrior)}</td>
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalRevCurrent)}</td>
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalCostCurrent)}</td>
                   <td className="text-right tabular-nums py-2 px-3">{currency(totalGPCurrent)}</td>

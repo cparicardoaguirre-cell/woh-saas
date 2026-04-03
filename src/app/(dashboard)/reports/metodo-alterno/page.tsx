@@ -1,11 +1,28 @@
-import { getAllReportData } from '@/lib/reports'
-import { appConfig } from '@/lib/data'
-import { currency } from '@/lib/format'
+import { getCompanyForUser, getAppConfig, getReportingPeriods } from '@/lib/db'
+import { getAllReportDataLive } from '@/lib/db-reports'
+import { currency, periodLabel } from '@/lib/format'
 import { Card, CardContent } from '@/components/ui/card'
+import { PeriodSelector } from '@/components/period-selector'
+import { PrintButton } from '@/components/print-button'
+import { redirect } from 'next/navigation'
 
-export default function MetodoAlternoPage() {
-  const { metodoAlterno } = getAllReportData()
-  const { companyName } = appConfig
+export default async function MetodoAlternoPage(
+  props: { searchParams: Promise<Record<string, string | string[] | undefined>> }
+) {
+  const company = await getCompanyForUser()
+  if (!company) redirect('/login')
+
+  const config = await getAppConfig(company.id)
+  const sp = await props.searchParams
+  const period = (sp?.period as string) || config.currentPeriod
+
+  const reportData = await getAllReportDataLive(company.id, period)
+  const { metodoAlterno } = reportData
+
+  const periods = await getReportingPeriods(company.id)
+  const periodDates = periods.length > 0
+    ? periods.map((p) => p.period_date)
+    : [config.currentPeriod, config.priorPeriod1, config.priorPeriod2, config.priorPeriod3].filter(Boolean)
 
   const totals = {
     revenue: metodoAlterno.reduce((a, r) => a + r.revenueCurrentPeriod, 0),
@@ -19,11 +36,17 @@ export default function MetodoAlternoPage() {
   return (
     <div className="p-8">
       <div className="mb-6">
-        <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Método Alterno — Puerto Rico</div>
-        <h1 className="text-xl font-bold">{companyName}</h1>
-        <h2 className="text-lg font-semibold text-gray-700 mt-1">Método Alterno de Reconocimiento de Ingresos</h2>
+        <div className="flex items-center justify-between print:hidden">
+          <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">Metodo Alterno — Puerto Rico</div>
+          <div className="flex items-center gap-3">
+            <PeriodSelector periods={periodDates} currentPeriod={period} />
+            <PrintButton />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold">{config.companyName}</h1>
+        <h2 className="text-lg font-semibold text-gray-700 mt-1">Metodo Alterno de Reconocimiento de Ingresos</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Para el año terminado el 31 de diciembre de 2024 &nbsp;·&nbsp; {metodoAlterno.length} contratos
+          Para el ano terminado el {periodLabel(period)} &nbsp;·&nbsp; {metodoAlterno.length} contratos
         </p>
       </div>
 

@@ -1,20 +1,48 @@
-import { getAllReportData } from '@/lib/reports'
-import { appConfig } from '@/lib/data'
-import { currency } from '@/lib/format'
+import { getCompanyForUser, getAppConfig, getReportingPeriods } from '@/lib/db'
+import { getAllReportDataLive } from '@/lib/db-reports'
+import { currency, periodLabel } from '@/lib/format'
 import { Card, CardContent } from '@/components/ui/card'
+import { PeriodSelector } from '@/components/period-selector'
+import { PrintButton } from '@/components/print-button'
+import { redirect } from 'next/navigation'
 
-export default function Note7Page() {
-  const { noteD } = getAllReportData()
-  const { companyName, currentPeriod, priorPeriod1 } = appConfig
+export default async function Note7Page(
+  props: { searchParams: Promise<Record<string, string | string[] | undefined>> }
+) {
+  const company = await getCompanyForUser()
+  if (!company) redirect('/login')
 
-  const priorLabel = `December 31, ${priorPeriod1.slice(0, 4)}`
-  const currentLabel = `December 31, ${currentPeriod.slice(0, 4)}`
+  const config = await getAppConfig(company.id)
+  const sp = await props.searchParams
+  const period = (sp?.period as string) || config.currentPeriod
+
+  const reportData = await getAllReportDataLive(company.id, period)
+  const { noteD } = reportData
+
+  const periods = await getReportingPeriods(company.id)
+  const periodDates = periods.length > 0
+    ? periods.map((p) => p.period_date)
+    : [config.currentPeriod, config.priorPeriod1, config.priorPeriod2, config.priorPeriod3].filter(Boolean)
+
+  // Derive the prior period label from config relative to the selected period
+  const periodIndex = periodDates.indexOf(period)
+  const priorPeriodDate = periodIndex >= 0 && periodIndex < periodDates.length - 1
+    ? periodDates[periodIndex + 1]
+    : config.priorPeriod1
+  const priorLabel = periodLabel(priorPeriodDate)
+  const currentLabel = periodLabel(period)
 
   return (
     <div className="p-8 max-w-2xl">
       <div className="mb-6">
-        <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">GAAP Disclosure</div>
-        <h1 className="text-xl font-bold">{companyName}</h1>
+        <div className="flex items-center justify-between print:hidden">
+          <div className="text-xs text-muted-foreground uppercase tracking-widest mb-1">GAAP Disclosure</div>
+          <div className="flex items-center gap-3">
+            <PeriodSelector periods={periodDates} currentPeriod={period} />
+            <PrintButton />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold">{config.companyName}</h1>
         <h2 className="text-lg font-semibold text-gray-700 mt-1">Note D — Backlog Analysis</h2>
         <p className="text-sm text-muted-foreground mt-1">For the year ended {currentLabel}</p>
       </div>

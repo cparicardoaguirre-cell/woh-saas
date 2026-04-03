@@ -1,10 +1,39 @@
-import { getAllReportData } from '@/lib/reports'
-import { appConfig } from '@/lib/data'
-import { currency, pct } from '@/lib/format'
+import { redirect } from 'next/navigation'
+import { getCompanyForUser, getAppConfig, getReportingPeriods } from '@/lib/db'
+import { getAllReportDataLive } from '@/lib/db-reports'
+import { currency, pct, periodLabel } from '@/lib/format'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { PeriodSelector } from '@/components/period-selector'
 
-export default function DashboardPage() {
-  const { schedule1, schedule2, schedule3, nota6 } = getAllReportData()
+export default async function DashboardPage(props: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const company = await getCompanyForUser()
+  if (!company) redirect('/login')
+
+  const [config, reportingPeriods, searchParams] = await Promise.all([
+    getAppConfig(company.id),
+    getReportingPeriods(company.id),
+    props.searchParams,
+  ])
+
+  const periodParam = typeof searchParams.period === 'string' ? searchParams.period : undefined
+  const currentPeriod = periodParam ?? config.currentPeriod
+
+  const { schedule1, schedule2, schedule3, nota6 } = await getAllReportDataLive(
+    company.id,
+    currentPeriod
+  )
+
+  const periods = reportingPeriods.map((rp) => rp.period_date)
+  if (!periods.includes(currentPeriod)) {
+    periods.unshift(currentPeriod)
+  }
+
+  const retainageReceivable = [...schedule2, ...schedule3].reduce(
+    (a, m) => a + m.retainageReceivable,
+    0
+  )
 
   const kpis = [
     {
@@ -20,7 +49,12 @@ export default function DashboardPage() {
     {
       label: 'Gross Profit (Current Period)',
       value: currency(schedule1.total.grossProfit),
-      sub: pct(schedule1.total.revenue > 0 ? schedule1.total.grossProfit / schedule1.total.revenue : 0) + ' margin',
+      sub:
+        pct(
+          schedule1.total.revenue > 0
+            ? schedule1.total.grossProfit / schedule1.total.revenue
+            : 0
+        ) + ' margin',
     },
     {
       label: 'Completed Contracts',
@@ -30,7 +64,8 @@ export default function DashboardPage() {
     {
       label: 'Contracts in Progress',
       value: String(schedule3.length),
-      sub: currency(schedule3.reduce((a, m) => a + m.projectedContractAmount, 0)) + ' projected',
+      sub:
+        currency(schedule3.reduce((a, m) => a + m.projectedContractAmount, 0)) + ' projected',
     },
     {
       label: 'Contract Assets (ASC 606)',
@@ -44,20 +79,21 @@ export default function DashboardPage() {
     },
     {
       label: 'Retainage Receivable',
-      value: currency(
-        [...schedule2, ...schedule3].reduce((a, m) => a + m.retainageReceivable, 0)
-      ),
+      value: currency(retainageReceivable),
       sub: 'Outstanding retainage',
     },
   ]
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">{appConfig.companyName}</h1>
-        <p className="text-muted-foreground text-sm mt-1">
-          Period ending December 31, 2024 &nbsp;·&nbsp; Work on Hand Summary
-        </p>
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">{config.companyName}</h1>
+          <p className="text-muted-foreground text-sm mt-1">
+            {periodLabel(currentPeriod)} &nbsp;&middot;&nbsp; Work on Hand Summary
+          </p>
+        </div>
+        <PeriodSelector periods={periods} currentPeriod={currentPeriod} />
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -80,7 +116,9 @@ export default function DashboardPage() {
         {/* Schedule 1 Summary */}
         <Card className="col-span-2">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold">Schedule 1 — Earnings from Contracts</CardTitle>
+            <CardTitle className="text-sm font-semibold">
+              Schedule 1 — Earnings from Contracts
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <table className="w-full text-sm">
@@ -95,21 +133,39 @@ export default function DashboardPage() {
               <tbody>
                 <tr className="border-b">
                   <td className="py-2">Contracts Completed</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.completed.revenue)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.completed.cost)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.completed.grossProfit)}</td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.completed.revenue)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.completed.cost)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.completed.grossProfit)}
+                  </td>
                 </tr>
                 <tr className="border-b">
                   <td className="py-2">Contracts in Progress</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.inProgress.revenue)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.inProgress.cost)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.inProgress.grossProfit)}</td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.inProgress.revenue)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.inProgress.cost)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.inProgress.grossProfit)}
+                  </td>
                 </tr>
                 <tr className="font-semibold bg-gray-50">
                   <td className="py-2 pl-1 rounded-l">Total</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.total.revenue)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.total.cost)}</td>
-                  <td className="text-right tabular-nums">{currency(schedule1.total.grossProfit)}</td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.total.revenue)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.total.cost)}
+                  </td>
+                  <td className="text-right tabular-nums">
+                    {currency(schedule1.total.grossProfit)}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -119,7 +175,9 @@ export default function DashboardPage() {
         {/* Nota 6 Summary */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold">Nota 6 — Contracts in Progress</CardTitle>
+            <CardTitle className="text-sm font-semibold">
+              Nota 6 — Contracts in Progress
+            </CardTitle>
           </CardHeader>
           <CardContent className="text-sm space-y-2">
             {[
@@ -131,7 +189,9 @@ export default function DashboardPage() {
             ].map(([label, val]) => (
               <div key={String(label)} className="flex justify-between items-center">
                 <span className="text-muted-foreground text-xs">{label}</span>
-                <span className={`tabular-nums font-medium ${Number(val) < 0 ? 'text-red-600' : ''}`}>
+                <span
+                  className={`tabular-nums font-medium ${Number(val) < 0 ? 'text-red-600' : ''}`}
+                >
                   {currency(Number(val))}
                 </span>
               </div>
@@ -139,11 +199,15 @@ export default function DashboardPage() {
             <div className="border-t pt-2 mt-2 space-y-1">
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">Contract Assets</span>
-                <span className="tabular-nums text-green-700 font-medium">{currency(nota6.contractAssets)}</span>
+                <span className="tabular-nums text-green-700 font-medium">
+                  {currency(nota6.contractAssets)}
+                </span>
               </div>
               <div className="flex justify-between text-xs">
                 <span className="text-muted-foreground">Contract Liabilities</span>
-                <span className="tabular-nums text-red-600 font-medium">{currency(nota6.contractLiability)}</span>
+                <span className="tabular-nums text-red-600 font-medium">
+                  {currency(nota6.contractLiability)}
+                </span>
               </div>
             </div>
           </CardContent>
